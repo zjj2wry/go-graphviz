@@ -1,0 +1,37 @@
+digraph G{
+	label="netstat" labeljust="l" fontname="Arial" fontsize="14" rankdir="LR" bgcolor="lightgray" style="solid" penwidth="0.5" pad="0.0" nodesep="0.35"
+	node [shape="ellipse" style="filled" fillcolor="lightblue" fontname="Verdana" penwidth="1.0" margin="0.05,0.0"]
+	edge [minlen="2" fontsize=12 color="saddlebrown"]
+	subgraph "cluster"{
+		bgcolor="#e6ecfa" label="pod-b" labelloc="t" labeljust="c" fontsize="18"
+		"pod-a1" [ label="pod-a1" ]
+		"pod-a2" [ label="pod-a2" ]
+		"pod-a3" [ label="pod-a3" ]
+		"pod-a4" [ label="pod-a4" ]
+		"pod-a5" [ label="pod-a5" ]
+		"pod-b" [ label="pod-b" ]
+		"pod-c1" [ label="pod-c1" ]
+		"coredns" [ label="coredns" ]
+		"mysql" [ label="mysql" ]
+		"redis" [ label="redis" ]
+		"inbound-tcp" [ shape="diamond" fillcolor="yellow" label="inbound-tcp" penwidth="0.5" ]
+		"inbound-udp" [ shape="diamond" fillcolor="yellow" label="inbound-udp" penwidth="0.5" ]
+		"outbound-tcp" [ shape="diamond" fillcolor="yellow" label="outbound-tcp" penwidth="0.5" ]
+		"outbound-udp" [ shape="diamond" fillcolor="yellow" label="outbound-udp" penwidth="0.5" ]
+	}
+	
+	"pod-a1" -> "inbound-tcp" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"pod-a2" -> "inbound-tcp" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"pod-a3" -> "inbound-tcp" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"pod-a4" -> "inbound-udp" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"pod-a5" -> "inbound-udp" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"inbound-tcp" -> "pod-b" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"inbound-udp" -> "pod-b" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"pod-b" -> "outbound-udp" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"pod-b" -> "outbound-tcp" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"outbound-tcp" -> "mysql" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"outbound-tcp" -> "redis" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"outbound-tcp" -> "pod-c1" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+	"outbound-udp" -> "coredns" [ label="ESTABLISH=50\nTIME_WAIT=10000" ]
+}
+

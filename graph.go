@@ -12,8 +12,8 @@ type Graph struct {
 	NodeAttrs *Attrs
 	EdgeAttrs *Attrs
 	Subgraphs []*Graph
-	Nodes     []Node
-	Edges     []Edge
+	Nodes     []*Node
+	Edges     []*Edge
 }
 
 func NewGraph() *Graph {
@@ -23,8 +23,9 @@ func NewGraph() *Graph {
 		Attrs:     &Attrs{},
 		NodeAttrs: &Attrs{},
 		EdgeAttrs: &Attrs{},
-		Edges:     []Edge{},
 		Subgraphs: []*Graph{},
+		Edges:     []*Edge{},
+		Nodes:     []*Node{},
 	}
 }
 
@@ -35,8 +36,9 @@ func NewSubGraph() *Graph {
 		Attrs:     &Attrs{},
 		NodeAttrs: &Attrs{},
 		EdgeAttrs: &Attrs{},
-		Edges:     []Edge{},
 		Subgraphs: []*Graph{},
+		Nodes:     []*Node{},
+		Edges:     []*Edge{},
 	}
 }
 
@@ -56,11 +58,11 @@ func (g *Graph) AddSubgraph(graph *Graph) {
 	g.Subgraphs = append(g.Subgraphs, graph)
 }
 
-func (g *Graph) AddNode(node Node) {
+func (g *Graph) AddNode(node *Node) {
 	g.Nodes = append(g.Nodes, node)
 }
 
-func (g *Graph) AddEdge(edge Edge) {
+func (g *Graph) AddEdge(edge *Edge) {
 	g.Edges = append(g.Edges, edge)
 }
 

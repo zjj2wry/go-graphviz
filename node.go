@@ -1,14 +1,17 @@
 package dot
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 type Node struct {
-	Name  string
+	Name string
 	*Attrs
 }
 
-func NewNode(name string, attrs ...string) Node {
-	return Node{
+func NewNode(name string, attrs ...string) *Node {
+	return &Node{
 		Name: name,
 		Attrs: &Attrs{
 			Items: strings.Split(strings.Join(attrs, " "), " "),
@@ -16,10 +19,10 @@ func NewNode(name string, attrs ...string) Node {
 	}
 }
 
-func (node *Node)AddAttrs(attrs string){
+func (node *Node) AddAttrs(attrs string) {
 	node.AddAttrs(attrs)
 }
 
-func(node *Node)String()string{
-	return fmt.Sprintf("\"%s\" -> \"%s\" [%s]", node.Src, node.Dst, node.Attrs)
+func (node *Node) String() string {
+	return fmt.Sprintf("\"%s\" [ %s ]", node.Name, node.Attrs)
 }
